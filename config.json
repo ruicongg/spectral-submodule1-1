@@ -1,0 +1,6 @@
+{
+    "name": "submodule1_1",
+    "import": "submodule1_1.h",
+    "version": "1.0.0",
+    "dependencies": []
+} 
