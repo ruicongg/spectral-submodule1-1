@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Combined build and test script for submodule1
-# Automates the complete build and test process with error handling
+# Build script for submodule1
+# Automates the build process with error handling
 
 set -e  # Exit on error
 
@@ -11,7 +11,7 @@ RED='\033[0;31m'
 YELLOW='\033[0;33m'
 NC='\033[0m' # No Color
 
-echo -e "${YELLOW}Building and testing submodule1...${NC}"
+echo -e "${YELLOW}Building submodule1...${NC}"
 
 # Setup dependencies recursively
 echo "Setting up dependencies..."
@@ -31,9 +31,6 @@ if [ ! -d "build" ]; then
     mkdir -p build
 fi
 
-# Read project name from config.json
-PROJECT_NAME=$(jq -r '.name' config.json)
-
 # Navigate to build directory
 cd build
 
@@ -45,22 +42,22 @@ cmake .. || { echo -e "${RED}CMake configuration failed${NC}"; exit 1; }
 echo "Building..."
 make || { echo -e "${RED}Build failed${NC}"; exit 1; }
 
-# Run unit tests
-echo "Running unit tests..."
-./${PROJECT_NAME}_unit_tests || { echo -e "${RED}Unit tests failed${NC}"; exit 1; }
+# Read project name from config.json
+PROJECT_NAME=$(jq -r '.name' ../config.json)
 
-# Run test application
-echo "Running test application..."
-./${PROJECT_NAME}_app || { echo -e "${RED}Test application failed${NC}"; exit 1; }
-
-# All succeeded
-echo -e "${GREEN}All build and test processes completed successfully!${NC}"
+# Build succeeded
+echo -e "${GREEN}Build successful!${NC}"
 echo ""
-echo "Summary:"
-echo "  - ${PROJECT_NAME} library was built"
-echo "  - Dependencies were resolved recursively"
-echo "  - Unit tests passed"
-echo "  - Test application executed successfully"
+echo "The following artifacts were created:"
+echo "  - Static library: $(pwd)/lib${PROJECT_NAME}.a"
+echo "  - Test executable: $(pwd)/${PROJECT_NAME}_app"
+echo "  - Unit tests: $(pwd)/${PROJECT_NAME}_unit_tests"
+echo ""
+echo "You can run the test application with:"
+echo "  ./${PROJECT_NAME}_app"
+echo ""
+echo "Run unit tests with:"
+echo "  ./${PROJECT_NAME}_unit_tests"
 
 # Return to original directory
 cd .. 

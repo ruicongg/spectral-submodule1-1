@@ -27,8 +27,8 @@ The easiest way to get started is to use the combined build and test script:
 1. Clone the repository:
 
    ```
-   git clone <repository-url>/submodule1_1.git
-   cd submodule1_1
+   git clone https://github.com/ruicongg/spectral-submodule1-1.git
+   cd spectral-submodule1-1
    ```
 
 2. Run the build and test script:
@@ -128,21 +128,3 @@ Returns a string containing data from Submodule1_1.
 **Side effects:**
 
 - Prints "Submodule1_1 function called" to standard output
-
-## Integration with CI/CD
-
-This module is compatible with the project's CI/CD toolchain. You can use the toolchain scripts from the `toolchain` directory to automate building, testing, and deploying.
-
-Example:
-
-```
-python3 ../toolchain/build.py --project-dir .
-```
-
-## License
-
-[Specify the license information here]
-
-## Contributing
-
-[Add contribution guidelines or contact information]
