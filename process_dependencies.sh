@@ -80,4 +80,12 @@ process_dependency "$BASE_DIR"
 echo "" >> "$INCLUDES_FILE"
 echo "#endif // DEPS_GENERATED_H" >> "$INCLUDES_FILE"
 
+# Copy the generated deps_generated.h to each dependency directory
+for dep_dir in "$DEPS_DIR"/*; do
+    if [ -d "$dep_dir" ]; then
+        echo "Copying deps_generated.h to $(basename "$dep_dir")"
+        cp "$INCLUDES_FILE" "$dep_dir/"
+    fi
+done
+
 echo -e "${GREEN}All dependencies processed successfully.${NC}" 
